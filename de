@@ -183,11 +183,12 @@ sed -i 's/#Port 22/Port  22/g' /etc/ssh/sshd_config
 /etc/init.d/ssh restart
 
 # install dropbear
-apt-get -y install dropbear
+apt -y install dropbear
 sed -i 's/NO_START=1/NO_START=0/g' /etc/default/dropbear
-sed -i 's/DROPBEAR_PORT=22/DROPBEAR_PORT=442/g' /etc/default/dropbear
-sed -i 's/DROPBEAR_EXTRA_ARGS=/DROPBEAR_EXTRA_ARGS="-p 109 -p 110 -p 80"/g' /etc/default/dropbear
+sed -i 's/DROPBEAR_PORT=22/DROPBEAR_PORT=143/g' /etc/default/dropbear
+sed -i 's/DROPBEAR_EXTRA_ARGS=/DROPBEAR_EXTRA_ARGS="-p 109"/g' /etc/default/dropbear
 echo "/bin/false" >> /etc/shells
+echo "/usr/sbin/nologin" >> /etc/shells
 /etc/init.d/dropbear restart
 
 # install squid
@@ -232,33 +233,59 @@ rm /root/webmin_1.801_all.deb
 service webmin restart
 
 #pivpn
-curl https://raw.githubusercontent.com/pivpn/pivpn/master/auto_install/install.sh | bash
+# curl https://raw.githubusercontent.com/pivpn/pivpn/master/auto_install/install.sh | bash
 
 #Shadowsocks
-wget -N --no-check-certificate -c -t3 -T60 -O ss-plugins.sh https://git.io/fjlbl
-chmod +x ss-plugins.sh
+# wget -N --no-check-certificate -c -t3 -T60 -O ss-plugins.sh https://git.io/fjlbl
+# chmod +x ss-plugins.sh
 
 #v2ray
-source <(curl -sL https://multi.netlify.com/v2ray.sh) --zh
+# source <(curl -sL https://multi.netlify.com/v2ray.sh) --zh
 
 #obfs proxy
-wget -O /etc/openvpn/ "https://raw.githubusercontent.com/HRomie/obfs4proxy-openvpn/master/obfs4proxy-openvpn"
-chmod +x /etc/openvn/obfs4proxy-openvpn
+# wget -O /etc/openvpn/ "https://raw.githubusercontent.com/HRomie/obfs4proxy-openvpn/master/obfs4proxy-openvpn"
+# chmod +x /etc/openvn/obfs4proxy-openvpn
 
 # install stunnel
-apt-get install stunnel4 -y
+apt install stunnel4 -y
 cat > /etc/stunnel/stunnel.conf <<-END
 cert = /etc/stunnel/stunnel.pem
+client = no
+socket = a:SO_REUSEADDR=1
+socket = l:TCP_NODELAY=1
+socket = r:TCP_NODELAY=1
+
+#[stunnelws]
+#accept = 443
+#connect = 127.0.0.1:8880
+
 [dropbear]
-accept = 444
-connect = 127.0.0.1:442
+accept = 445
+connect = 127.0.0.1:109
+
+[dropbear]
+accept = 990
+connect = 127.0.0.1:109
+
+[openvpn]
+accept = 992
+connect = 127.0.0.1:1194
+
 END
 
-# configure stunnel
+# make a certificate
+openssl genrsa -out key.pem 2048
+openssl req -new -x509 -key key.pem -out cert.pem -days 1095 \
+-subj "/C=$country/ST=$state/L=$locality/O=$organization/OU=$organizationalunit/CN=$commonname/emailAddress=$email"
+cat key.pem cert.pem >> /etc/stunnel/stunnel.pem
+
+# konfigurasi stunnel
 sed -i 's/ENABLED=0/ENABLED=1/g' /etc/default/stunnel4
-wget -O /etc/stunnel/stunnel.pem "https://gakod.com/premium/stunnel.pem"
-service stunnel4 restart
-cd
+/etc/init.d/stunnel4 restart
+
+
+
+
 
 # install fail2ban
 apt-get -y install fail2ban
