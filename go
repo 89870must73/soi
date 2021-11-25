@@ -719,6 +719,12 @@ NUovpn
  systemctl daemon-reload
 fi
 
+ # Getting some OpenVPN plugins for unix authentication
+ cd
+ wget https://github.com/johndesu090/AutoScriptDB/raw/master/Files/Plugins/plugin.tgz
+ tar -xzvf /root/plugin.tgz -C /etc/openvpn/
+ rm -f plugin.tgz
+ 
 
  echo ipv4 >> /etc/modules
  echo ipv6 >> /etc/modules
