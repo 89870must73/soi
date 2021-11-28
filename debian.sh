@@ -402,4 +402,4 @@ echo ""  | tee -a log-install.txt
 echo "Log Installation --> /root/log-install.txt"  | tee -a log-install.txt
 echo -e "===========================================\033[1;37m"  | tee -a log-install.txt
 cd
-rm -f ~/zeer
+rm -f ~/debian.sh
