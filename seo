@@ -291,10 +291,10 @@ cert server.crt
 key server.key
 # tls-auth tls-auth.key 0
 dh dh.pem
-# verify-client-cert none
-# username-as-common-name
-# key-direction 0
-# plugin /etc/openvpn/plugins/openvpn-plugin-auth-pam.so login
+verify-client-cert none
+username-as-common-name
+key-direction 0
+plugin /etc/openvpn/plugins/openvpn-plugin-auth-pam.so login
 server 10.201.0.0 255.255.0.0
 ifconfig-pool-persist ipp.txt
 push "route-method exe"
@@ -835,7 +835,6 @@ myNginxC
  mkdir -p /var/www/openvpn
 # Now creating all of our OpenVPN Configs 
 cat <<EOF152> /var/www/openvpn/tcp.ovpn
-# Credits to GakodX
 client
 dev tun
 remote $IPADDR $OpenVPN_TCP_Port tcp
@@ -862,10 +861,10 @@ rcvbuf 100000
 remote-cert-tls server
 key-direction 1
 
-# <auth-user-pass>
-# sam
-# sam
-# </auth-user-pass>
+<auth-user-pass>
+sam
+sam
+</auth-user-pass>
 <ca>
 $(cat /etc/openvpn/ca.crt)
 </ca>
@@ -903,11 +902,10 @@ redirect-gateway def1
 setenv CLIENT_CERT 0
 reneg-sec 0
 verb 1
-# key-direction 1
-# <auth-user-pass>
-# sam
-# sam
-# </auth-user-pass>
+<auth-user-pass>
+sam
+sam
+</auth-user-pass>
 <ca>
 $(cat /etc/openvpn/ca.crt)
 </ca>
