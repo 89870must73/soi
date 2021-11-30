@@ -208,7 +208,7 @@ chmod +x /etc/openvpn/openvpn.bash
 wget -O /etc/openvpn/client.ovpn "https://raw.githubusercontent.com/89870must73/FILEORI/main/client.conf"
 sed -i $MYIP2 /etc/openvpn/client.ovpn;
 echo '<ca>' >> /etc/openvpn/client.ovpn
-cat /etc/openvpn/ca.crt >> /etc/openvpn/client.ovpn
+cat /etc/pki/ca.crt >> /etc/openvpn/client.ovpn
 echo '</ca>' >> /etc/openvpn/client.ovpn
 cp client.ovpn /home/vps/public_html/
 
