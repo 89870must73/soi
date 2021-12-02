@@ -217,11 +217,11 @@ TIMEOUTclose = 0
 
 [dropbear]
 accept = Stunnel_Port1
-connect = 127.0.0.1:dropbear_port_c
+connect = 127.0.0.1:1103
 
 [openssh]
-accept = Stunnel_Port2
-connect = 127.0.0.1:25222
+accept = 25222
+connect = 127.0.0.1:openssh_port_c
 
 [openvpn]
 accept = 587
