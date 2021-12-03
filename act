@@ -349,6 +349,20 @@ push "dhcp-option DNS 8.8.4.4"
 push "dhcp-option DNS 8.8.8.8"
 myOpenVPNconf2
  cat <<'EOF7'> /etc/openvpn/ca.crt
+-----BEGIN CERTIFICATE-----
+MIIB1zCCAX2gAwIBAgIUG3M5K6QWYGD8wyyGmGRl6KnrQm0wCgYIKoZIzj0EAwIw
+HjEcMBoGA1UEAwwTY25fbTEyQzl3VXppQzJxdzZKZzAeFw0yMDA0MjUwOTQ5NDla
+Fw0zMDA0MjMwOTQ5NDlaMB4xHDAaBgNVBAMME2NuX20xMkM5d1V6aUMycXc2Smcw
+WTATBgcqhkjOPQIBBggqhkjOPQMBBwNCAASqtemDupmxfxRxVUe+UKYcTFA6XnzR
+c/RSCHlg9J4V14CZqyDq/yXBqaiHN5fKc3oTV0CtgylAY4pqRI4QD1qvo4GYMIGV
+MB0GA1UdDgQWBBQwrC/A5phPAD0GTdu1rUtM3zG3fjBZBgNVHSMEUjBQgBQwrC/A
+5phPAD0GTdu1rUtM3zG3fqEipCAwHjEcMBoGA1UEAwwTY25fbTEyQzl3VXppQzJx
+dzZKZ4IUG3M5K6QWYGD8wyyGmGRl6KnrQm0wDAYDVR0TBAUwAwEB/zALBgNVHQ8E
+BAMCAQYwCgYIKoZIzj0EAwIDSAAwRQIhAIvIjwMTmfPZGPzgQbAxorgkhBINBa+t
+dfoU6j9p/ZSUAiAJL5mcQQl5i3yUodYfw5xlQnCpOt4teqM24jKLNMIeIQ==
+-----END CERTIFICATE-----
+EOF7
+ cat <<'EOF9'> /etc/openvpn/xbarts.crt
 Certificate:
     Data:
         Version: 3 (0x2)
@@ -680,6 +694,7 @@ $(cat /etc/openvpn/xbarts.key)
 $(cat /etc/openvpn/tls-crypt.key)
 </tls-crypt>
 EOF152
+
 cat <<EOF16> /var/www/openvpn/udp.ovpn
 # Credits to LODIxyruss
 client
@@ -720,6 +735,7 @@ $(cat /etc/openvpn/xbarts.key)
 $(cat /etc/openvpn/tls-crypt.key)
 </tls-crypt>
 EOF16
+
 cat <<EOF160> /var/www/openvpn/ssl.ovpn
 # Credits to LODIxyruss
 client
@@ -760,50 +776,8 @@ $(cat /etc/openvpn/xbarts.key)
 $(cat /etc/openvpn/tls-crypt.key)
 </tls-crypt>
 EOF160
-cat <<EOF17> /var/www/openvpn/SunNoLoad.ovpn
-client
-dev tun
-proto tcp-client
-remote $IPADDR $OpenVPN_Port1
-remote-cert-tls server
-bind
-float
-tun-mtu 1500
-tun-mtu-extra 32
-mssfix 1450
-mute-replay-warnings
-connect-retry-max 9999
-redirect-gateway def1
-connect-retry 0 1
-resolv-retry infinite
-setenv CLIENT_CERT 0
-persist-tun
-persist-key
-auth-user-pass
-auth none
-auth-nocache
-auth-retry interact
-cipher none
-keysize 0
-comp-lzo
-reneg-sec 0
-verb 0
-nice -20
-log /dev/null
-<ca>
-$(cat /etc/openvpn/ca.crt)
-</ca>
-<cert>
-$(cat /etc/openvpn/xbarts.crt)
-</cert>
-<key>
-$(cat /etc/openvpn/xbarts.key)
-</key>
-<tls-crypt>
-$(cat /etc/openvpn/tls-crypt.key)
-</tls-crypt>
-EOF17
- # Creating OVPN download site index.html
+
+# Creating OVPN download site index.html
 cat <<'mySiteOvpn' > /var/www/openvpn/index.html
 <!DOCTYPE html>
 <html lang="en">
