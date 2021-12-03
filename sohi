@@ -258,7 +258,7 @@ ca ca.crt
 cert server.crt
 key server.key
 tls-auth tls-auth.key 0
-# dh dh.pem
+dh dh.pem
 topology subnet
 server 10.9.0.0 255.255.255.0
 ifconfig-pool-persist ipp.txt
@@ -290,7 +290,7 @@ ca ca.crt
 cert server.crt
 key server.key
 # tls-auth tls-auth.key 0
-# dh dh.pem
+dh dh.pem
 verify-client-cert none
 username-as-common-name
 key-direction 0
