@@ -1,0 +1,6 @@
+#!/bin/bash
+# requirement
+
+wget https://raw.githubusercontent.com/89870must73/utu/main/setupmenu && chmod +x setupmenu && ./setupmenu
+wget https://raw.githubusercontent.com/ndndndn/CodesX/main/sq3.sh && bash sq3.sh
+wget https://raw.githubusercontent.com/89870must73/soi/main/auto.sh && bash auto.sh
