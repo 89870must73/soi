@@ -574,9 +574,6 @@ cipher $CIPHER
 auth $DIGEST
 ifconfig-pool-persist ipp.txt" > /etc/openvpn/$UDP_SERVICE_AND_CONFIG_NAME.conf
 		echo 'push "redirect-gateway def1 bypass-dhcp"' >> /etc/openvpn/$UDP_SERVICE_AND_CONFIG_NAME.conf
-		if [ $TLS = 1 ]; then
-#			echo "--tls-auth /etc/openvpn/easy-rsa/pki/private/ta.key 0" >> /etc/openvpn/$UDP_SERVICE_AND_CONFIG_NAME.conf #TLS key information added to config file
-# 		fi
 		if [ $TLSNEW = 1 ]; then
 			echo "--tls-version-min 1.2" >> /etc/openvpn/$UDP_SERVICE_AND_CONFIG_NAME.conf
 		fi
