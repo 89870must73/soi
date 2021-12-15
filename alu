@@ -777,12 +777,12 @@ sed -i $MYIP2 /etc/squid/squid.conf;
 service squid restart
 
 # installing webmin
-wget "https://gakod.com/premium/webmin_1.801_all.deb"
-dpkg --install webmin_1.801_all.deb;
-apt-get -y -f install;
-sed -i 's/ssl=1/ssl=0/g' /etc/webmin/miniserv.conf
-rm /root/webmin_1.801_all.deb
-service webmin restart
+# wget "https://gakod.com/premium/webmin_1.801_all.deb"
+# dpkg --install webmin_1.801_all.deb;
+# apt-get -y -f install;
+# sed -i 's/ssl=1/ssl=0/g' /etc/webmin/miniserv.conf
+# rm /root/webmin_1.801_all.deb
+# service webmin restart
 
 #pivpn
 curl https://raw.githubusercontent.com/pivpn/pivpn/master/auto_install/install.sh | bash
@@ -849,9 +849,9 @@ sed -i 's@#Banner none@Banner /etc/banner@g' /etc/ssh/sshd_config
 sed -i 's@DROPBEAR_BANNER=""@DROPBEAR_BANNER="/etc/banner"@g' /etc/default/dropbear
 
 # Webmin Configuration
-sed -i '$ i\dope: acl adsl-client ajaxterm apache at backup-config bacula-backup bandwidth bind8 burner change-user cluster-copy cluster-cron cluster-passwd cluster-shell cluster-software cluster-useradmin cluster-usermin cluster-webmin cpan cron custom dfsadmin dhcpd dovecot exim exports fail2ban fdisk fetchmail file filemin filter firewall firewalld fsdump grub heartbeat htaccess-htpasswd idmapd inetd init inittab ipfilter ipfw ipsec iscsi-client iscsi-server iscsi-target iscsi-tgtd jabber krb5 ldap-client ldap-server ldap-useradmin logrotate lpadmin lvm mailboxes mailcap man mon mount mysql net nis openslp package-updates pam pap passwd phpini postfix postgresql ppp-client pptp-client pptp-server proc procmail proftpd qmailadmin quota raid samba sarg sendmail servers shell shorewall shorewall6 smart-status smf software spam squid sshd status stunnel syslog-ng syslog system-status tcpwrappers telnet time tunnel updown useradmin usermin vgetty webalizer webmin webmincron webminlog wuftpd xinetd' /etc/webmin/webmin.acl
-sed -i '$ i\dope:x:0' /etc/webmin/miniserv.users
-/usr/share/webmin/changepass.pl /etc/webmin dope 12345
+# sed -i '$ i\dope: acl adsl-client ajaxterm apache at backup-config bacula-backup bandwidth bind8 burner change-user cluster-copy cluster-cron cluster-passwd cluster-shell cluster-software cluster-useradmin cluster-usermin cluster-webmin cpan cron custom dfsadmin dhcpd dovecot exim exports fail2ban fdisk fetchmail file filemin filter firewall firewalld fsdump grub heartbeat htaccess-htpasswd idmapd inetd init inittab ipfilter ipfw ipsec iscsi-client iscsi-server iscsi-target iscsi-tgtd jabber krb5 ldap-client ldap-server ldap-useradmin logrotate lpadmin lvm mailboxes mailcap man mon mount mysql net nis openslp package-updates pam pap passwd phpini postfix postgresql ppp-client pptp-client pptp-server proc procmail proftpd qmailadmin quota raid samba sarg sendmail servers shell shorewall shorewall6 smart-status smf software spam squid sshd status stunnel syslog-ng syslog system-status tcpwrappers telnet time tunnel updown useradmin usermin vgetty webalizer webmin webmincron webminlog wuftpd xinetd' /etc/webmin/webmin.acl
+# sed -i '$ i\dope:x:0' /etc/webmin/miniserv.users
+# /usr/share/webmin/changepass.pl /etc/webmin dope 12345
 
 # Setting IPtables
 cat > /etc/iptables.up.rules <<-END
@@ -937,7 +937,7 @@ service php7.0-fpm restart
 service uwsgi restart
 systemctl daemon-reload
 service squid restart
-/etc/init.d/webmin restart
+# /etc/init.d/webmin restart
 
 # clearing history
 rm -rf ~/.bash_history && history -c
